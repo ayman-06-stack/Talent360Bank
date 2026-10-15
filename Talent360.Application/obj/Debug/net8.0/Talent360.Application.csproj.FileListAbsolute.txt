@@ -1,0 +1,15 @@
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\bin\Debug\net8.0\Talent360.Application.deps.json
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\bin\Debug\net8.0\Talent360.Application.dll
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\bin\Debug\net8.0\Talent360.Application.pdb
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\bin\Debug\net8.0\Talent360.Domain.dll
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\bin\Debug\net8.0\Talent360.Domain.pdb
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\Talent360.Application.csproj.AssemblyReference.cache
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\Talent360.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\Talent360.Application.AssemblyInfoInputs.cache
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\Talent360.Application.AssemblyInfo.cs
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\Talent360.Application.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\Talent36.EA874AE6.Up2Date
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\Talent360.Application.dll
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\refint\Talent360.Application.dll
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\Talent360.Application.pdb
+C:\Users\HP\Documents\Talent360Bank\Talent360.Application\obj\Debug\net8.0\ref\Talent360.Application.dll

@@ -1,0 +1,11 @@
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\bin\Debug\net8.0\Talent360.Domain.deps.json
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\bin\Debug\net8.0\Talent360.Domain.dll
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\bin\Debug\net8.0\Talent360.Domain.pdb
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\obj\Debug\net8.0\Talent360.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\obj\Debug\net8.0\Talent360.Domain.AssemblyInfoInputs.cache
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\obj\Debug\net8.0\Talent360.Domain.AssemblyInfo.cs
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\obj\Debug\net8.0\Talent360.Domain.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\obj\Debug\net8.0\Talent360.Domain.dll
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\obj\Debug\net8.0\refint\Talent360.Domain.dll
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\obj\Debug\net8.0\Talent360.Domain.pdb
+C:\Users\HP\Documents\Talent360Bank\Talent360.Domain\obj\Debug\net8.0\ref\Talent360.Domain.dll

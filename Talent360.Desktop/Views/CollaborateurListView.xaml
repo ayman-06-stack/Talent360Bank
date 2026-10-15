@@ -1,0 +1,65 @@
+<UserControl x:Class="Talent360.Desktop.Views.CollaborateurListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Talent360.Desktop.ViewModels"
+             Background="#F5F6FA">
+
+    <UserControl.DataContext>
+        <vm:CollaborateurListViewModel/>
+    </UserControl.DataContext>
+
+    <DockPanel Margin="24">
+        <!-- EN-TÊTE -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,16">
+            <TextBlock Text="Collaborateurs" FontSize="28" FontWeight="Bold"
+                       Foreground="#1B2A4A" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding NombreTotal, StringFormat=' ({0})'}" FontSize="16"
+                       Foreground="#6B7280" VerticalAlignment="Center" Margin="4,4,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="24,0,0,0" VerticalAlignment="Center">
+                <TextBlock Text="Afficher :" FontSize="13" Foreground="#4B5563" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="SourceFilterComboBox" Width="220" SelectedIndex="1" SelectionChanged="SourceFilterComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Tout"/>
+                    <ComboBoxItem Content="Données réelles uniquement" IsSelected="True"/>
+                    <ComboBoxItem Content="Démonstration uniquement"/>
+                </ComboBox>
+            </StackPanel>
+            <Button Content="📥  Exporter Excel" Click="ExporterExcel_Click"
+                    Margin="24,0,0,0" Padding="16,8" FontSize="13" Cursor="Hand"
+                    Background="#059669" Foreground="White" BorderThickness="0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#047857"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
+        <!-- TABLEAU -->
+        <DataGrid ItemsSource="{Binding Collaborateurs}" AutoGenerateColumns="False"
+                  IsReadOnly="True" CanUserSortColumns="True"
+                  GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                  BorderThickness="0" Background="White" RowBackground="White"
+                  AlternatingRowBackground="#F9FAFB" FontSize="13">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Matricule" Binding="{Binding Matricule}" Width="90"/>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="120"/>
+                <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="120"/>
+                <DataGridTextColumn Header="Direction" Binding="{Binding Direction}" Width="160"/>
+                <DataGridTextColumn Header="Poste" Binding="{Binding Poste}" Width="200"/>
+                <DataGridTextColumn Header="Grade" Binding="{Binding Grade}" Width="100"/>
+                <DataGridTextColumn Header="Perf." Binding="{Binding ScorePerformance}" Width="60"/>
+                <DataGridTextColumn Header="Pot." Binding="{Binding ScorePotentiel}" Width="60"/>
+                <DataGridTextColumn Header="Talent" Binding="{Binding StatutTalent}" Width="80"/>
+                <DataGridTextColumn Header="Vivier" Binding="{Binding Vivier}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

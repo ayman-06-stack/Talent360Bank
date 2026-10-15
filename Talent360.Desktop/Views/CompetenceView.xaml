@@ -1,0 +1,118 @@
+<UserControl x:Class="Talent360.Desktop.Views.CompetenceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Talent360.Desktop.ViewModels"
+             Background="#F5F6FA">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <!-- TITRE -->
+            <TextBlock Text="Compétences &amp; Gaps" FontSize="28" FontWeight="Bold"
+                       Foreground="#1B2A4A" Margin="0,0,0,20"/>
+
+            <!-- MESSAGE VIDE -->
+            <Border Background="#FEF3C7" CornerRadius="8" Padding="16" Margin="0,0,0,16"
+                    Visibility="{Binding ADonnees, Converter={StaticResource InverseBoolToVisConverter}}">
+                <TextBlock Text="{Binding MessageVide}" Foreground="#92400E" FontSize="14"
+                           TextWrapping="Wrap"/>
+            </Border>
+
+            <!-- CONTENU PRINCIPAL -->
+            <StackPanel Visibility="{Binding ADonnees, Converter={StaticResource BoolToVisConverter}}">
+
+                <!-- Tableau des compétences -->
+                <Border Background="White" CornerRadius="12" Padding="20"
+                        BorderBrush="#E5E7EB" BorderThickness="1" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Analyse des compétences (échelle 1-5)" FontSize="18"
+                                   FontWeight="SemiBold" Foreground="#1B2A4A" Margin="0,0,0,12"/>
+
+                        <DataGrid ItemsSource="{Binding Competences}" AutoGenerateColumns="False"
+                                  IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+                                  HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                  BorderThickness="0" Background="White"
+                                  RowBackground="White" AlternatingRowBackground="#F9FAFB"
+                                  SelectionMode="Single" SelectionUnit="FullRow"
+                                  SelectedItem="{Binding CompetenceSelectionnee, Mode=TwoWay}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Compétence" Binding="{Binding Nom}"
+                                                    Width="*" FontSize="13"/>
+                                <DataGridTextColumn Header="Note actuelle" Binding="{Binding NoteActuelle, StringFormat=F2}"
+                                                    Width="100">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Note cible" Binding="{Binding NoteCible, StringFormat=F1}"
+                                                    Width="90">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Écart" Binding="{Binding EcartTexte}"
+                                                    Width="80">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Foreground" Value="{Binding CouleurEcart}"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Évaluations" Binding="{Binding NombreEvaluations}"
+                                                    Width="90">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="Foreground" Value="#6B7280"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Statut Gap" Binding="{Binding StatutGap}"
+                                                    Width="130">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                            <Setter Property="Foreground" Value="{Binding CouleurEcart}"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Formulaire de modification de la cible -->
+                <Border Background="White" CornerRadius="12" Padding="20"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Modifier la note cible" FontSize="16"
+                                   FontWeight="SemiBold" Foreground="#1B2A4A" Margin="0,0,0,12"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Compétence sélectionnée : " VerticalAlignment="Center"
+                                       Foreground="#6B7280" Margin="0,0,8,0"/>
+                            <TextBlock Text="{Binding CompetenceSelectionnee.Nom, FallbackValue='(aucune)'}"
+                                       VerticalAlignment="Center" FontWeight="SemiBold"
+                                       Foreground="#1B2A4A" Margin="0,0,24,0"/>
+                            <TextBlock Text="Nouvelle cible (1-5) :" VerticalAlignment="Center"
+                                       Foreground="#6B7280" Margin="0,0,8,0"/>
+                            <TextBox Text="{Binding NouvelleCible, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="60" Padding="4" VerticalContentAlignment="Center"
+                                     Margin="0,0,12,0"/>
+                            <Button Content="Appliquer" Command="{Binding ModifierCibleCommand}"
+                                    Background="#2563EB" Foreground="White" Padding="12,6"
+                                    BorderThickness="0" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

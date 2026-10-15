@@ -1,0 +1,167 @@
+<UserControl x:Class="Talent360.Desktop.Views.TalentPassportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F5F6FA">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <TextBlock Text="Talent Passport" FontSize="28" FontWeight="Bold"
+                       Foreground="#1B2A4A" Margin="0,0,0,8"/>
+            <TextBlock Text="Fiche synthétique des talents validés — recherche par matricule"
+                       FontSize="13" Foreground="#6B7280" Margin="0,0,0,20"/>
+
+            <!-- Barre de recherche -->
+            <Border Background="White" CornerRadius="12" Padding="16" Margin="0,0,0,20"
+                    BorderBrush="#E5E7EB" BorderThickness="1">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Matricule : " VerticalAlignment="Center" FontSize="14"
+                               Foreground="#1B2A4A" Margin="0,0,8,0"/>
+                    <TextBox x:Name="TxtMatricule" Width="180" FontSize="14" Padding="8,6"
+                             VerticalAlignment="Center"/>
+                    <Button x:Name="BtnRechercher" Content="🔍  Rechercher" Click="Rechercher_Click"
+                            Margin="12,0,0,0" Background="#2563EB" Foreground="White" Padding="16,8"
+                            FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                        CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- Message -->
+            <TextBlock x:Name="LblMessage" FontSize="14" Foreground="#92400E"
+                       Margin="0,0,0,16" TextWrapping="Wrap"/>
+
+            <!-- FICHE TALENT -->
+            <StackPanel x:Name="PanelFiche" Visibility="Collapsed">
+
+                <!-- Identité -->
+                <Border Background="White" CornerRadius="12" Padding="24" Margin="0,0,0,12"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="LblNom" FontSize="24" FontWeight="Bold" Foreground="#1B2A4A"/>
+                            <TextBlock x:Name="LblPoste" FontSize="14" Foreground="#6B7280" Margin="0,4,0,0"/>
+                            <TextBlock x:Name="LblDirection" FontSize="14" Foreground="#6B7280"/>
+                            <TextBlock x:Name="LblGrade" FontSize="13" Foreground="#9CA3AF" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <Border Grid.Column="1" Background="#DBEAFE" CornerRadius="8" Padding="12,8"
+                                VerticalAlignment="Center">
+                            <TextBlock x:Name="LblStatut" FontSize="14" FontWeight="Bold" Foreground="#2563EB"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Scores -->
+                <UniformGrid Columns="4" Margin="0,0,0,12">
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Performance" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblPerf" FontSize="28" FontWeight="Bold"
+                                       Foreground="#059669" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Potentiel" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblPot" FontSize="28" FontWeight="Bold"
+                                       Foreground="#7C3AED" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Engagement" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblEngagement" FontSize="28" FontWeight="Bold"
+                                       Foreground="#2563EB" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Matching" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblMatching" FontSize="28" FontWeight="Bold"
+                                       Foreground="#EA580C" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- 9-Box / Catégorie / Vigilance -->
+                <UniformGrid Columns="3" Margin="0,0,0,12">
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Position 9-Box" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblBox9" FontSize="14" FontWeight="SemiBold"
+                                       Foreground="#1B2A4A" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Catégorie Perf." Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblCatPerf" FontSize="14" FontWeight="SemiBold"
+                                       Foreground="#1B2A4A" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Vigilance RH" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblVigilance" FontSize="14" FontWeight="Bold"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- Vivier / Readiness -->
+                <UniformGrid Columns="3" Margin="0,0,0,12">
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Vivier" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblVivier" FontSize="16" FontWeight="SemiBold"
+                                       Foreground="#1B2A4A" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Poste cible" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblPosteCible" FontSize="16" FontWeight="SemiBold"
+                                       Foreground="#2563EB" HorizontalAlignment="Center" TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Margin="6" Padding="16"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Readiness" Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LblReadiness" FontSize="16" FontWeight="Bold"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

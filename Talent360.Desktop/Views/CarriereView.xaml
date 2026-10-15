@@ -1,0 +1,67 @@
+<UserControl x:Class="Talent360.Desktop.Views.CarriereView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F5F6FA">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <TextBlock Text="Carrière &amp; Mobilité" FontSize="28" FontWeight="Bold"
+                       Foreground="#1B2A4A" Margin="0,0,0,8"/>
+            <TextBlock Text="Parcours de carrière et mobilité interne des collaborateurs"
+                       FontSize="13" Foreground="#6B7280" Margin="0,0,0,20"/>
+
+            <!-- MESSAGE INFORMATIF -->
+            <Border Background="#EFF6FF" CornerRadius="12" Padding="24" Margin="0,0,0,16"
+                    BorderBrush="#BFDBFE" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Donnees de mobilite non encore disponibles" FontSize="16"
+                               FontWeight="SemiBold" Foreground="#1E40AF" Margin="0,0,0,8"/>
+                    <TextBlock FontSize="13" Foreground="#3B82F6" TextWrapping="Wrap" LineHeight="22">
+                        Cette vue affichera les données de mobilité interne lorsqu'un import dédié sera disponible.
+                        En attendant, les informations de poste cible et de readiness sont visibles sur la fiche
+                        Talent Passport de chaque collaborateur identifié comme talent.
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <!-- RÉSUMÉ MOBILITÉ EXISTANTE (depuis PosteCible sur Collaborateurs) -->
+            <Border Background="White" CornerRadius="12" Padding="20"
+                    BorderBrush="#E5E7EB" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Souhaits de mobilité identifiés" FontSize="18" FontWeight="SemiBold"
+                               Foreground="#1B2A4A" Margin="0,0,0,12"/>
+                    <DataGrid x:Name="GridMobilite" AutoGenerateColumns="False"
+                              IsReadOnly="True" CanUserAddRows="False"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                              BorderThickness="0" Background="White"
+                              RowBackground="White" AlternatingRowBackground="#F9FAFB"
+                              FontSize="13">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Matricule" Binding="{Binding Matricule}" Width="90"/>
+                            <DataGridTextColumn Header="Nom" Binding="{Binding NomComplet}" Width="180">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Direction" Binding="{Binding Direction}" Width="160"/>
+                            <DataGridTextColumn Header="Poste actuel" Binding="{Binding Poste}" Width="*"/>
+                            <DataGridTextColumn Header="Poste cible" Binding="{Binding PosteCible}" Width="200">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#2563EB"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Readiness" Binding="{Binding Readiness}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

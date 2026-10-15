@@ -1,0 +1,437 @@
+<UserControl x:Class="Talent360.Desktop.Views.ImportDonneesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F5F6FA">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <!-- TITRE -->
+            <TextBlock Text="Import de données" FontSize="28" FontWeight="Bold"
+                       Foreground="#1B2A4A" Margin="0,0,0,8"/>
+            <TextBlock Text="Importez vos fichiers CSV ou Excel (.xlsx) — les colonnes doivent correspondre au format attendu."
+                       FontSize="13" Foreground="#6B7280" Margin="0,0,0,24"/>
+
+            <!-- ═══ SOURCES PRINCIPALES ═══ -->
+            <TextBlock Text="Sources principales" FontSize="16" FontWeight="SemiBold" Foreground="#1B2A4A" Margin="0,0,0,8"/>
+            <UniformGrid Columns="2">
+
+                <!-- 01. SIRH -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="🏢" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="01 — Fichier SIRH (collaborateurs)" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; Nom ; Prenom ; Direction ; Poste ; Grade ; DateEntree"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button x:Name="BtnImportSirh" Content="Choisir un fichier..." Click="ImportSirh_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultSirh" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 02. Auto-évaluation -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="📝" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="02 — Auto-évaluations" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateEvaluation ; ScorePerformance ; Competence_1 ; Note_1 ; …"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button x:Name="BtnImportAutoEval" Content="Choisir un fichier..." Click="ImportAutoEval_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultAutoEval" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 03. Évaluation Manager -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="👔" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="03 — Évaluations Manager" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateEvaluation ; ScorePerformanceManager"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button x:Name="BtnImportEvalMgr" Content="Choisir un fichier..." Click="ImportEvalManager_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultEvalMgr" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 04. Potentiel -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="🧠" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="04 — Potentiel (7 axes)" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateEvaluation ; AgiliteApprentissage ; Leadership ; Adaptabilite ; GestionComplexite ; Mobilite ; VisionStrategique ; Autonomie"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="Choisir un fichier..." Click="ImportPotentiel_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultPotentiel" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+            </UniformGrid>
+
+            <!-- ═══ SOURCES COMPLÉMENTAIRES ═══ -->
+            <TextBlock Text="Sources complémentaires" FontSize="16" FontWeight="SemiBold" Foreground="#1B2A4A" Margin="0,20,0,8"/>
+            <UniformGrid Columns="2">
+
+                <!-- 05. Formation -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="🎓" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="05 — Formation" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateFormation ; Intitule ; Type ; Statut ; DureeHeures"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="Choisir un fichier..." Click="ImportFormation_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultFormation" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 06. Mobilité -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="🌍" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="06 — Mobilité" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateDemande ; TypeMobilite ; Statut ; ScoreMobilite"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="Choisir un fichier..." Click="ImportMobilite_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultMobilite" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 07. Succession -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="07 — Succession" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : PosteCritiqueTitre ; MatriculeSuccesseur ; Readiness ; Priorite ; DateMiseAJour"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="Choisir un fichier..." Click="ImportSuccession_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultSuccession" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 08. Carrière -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="🚀" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="08 — Carrière (mouvements)" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateMouvement ; TypeMouvement ; PosteAvant ; PosteApres ; DirectionAvant ; DirectionApres"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="Choisir un fichier..." Click="ImportCarriere_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultCarriere" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 09. Reconnaissance -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="🏆" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="09 — Reconnaissance" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateReconnaissance ; Type ; Description"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="Choisir un fichier..." Click="ImportReconnaissance_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultReconnaissance" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 10. Leadership 360° -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="👑" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="10 — Leadership 360°" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateEvaluation ; ScoreLeadership ; ScoreEquipe ; ScorePairs ; ScoreHierarchie"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="Choisir un fichier..." Click="ImportLeadership_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultLeadership" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 11. Engagement -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="💬" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="11 — Engagement" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateReponse ; Management ; Reconnaissance ; Formation ; EvolutionPro ; ConditionsTravail ; Communication"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button x:Name="BtnImportEngagement" Content="Choisir un fichier..." Click="ImportEngagement_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultEngagement" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 12. Vigilance -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="6"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="" FontSize="22" Margin="0,0,8,0"/>
+                            <TextBlock Text="12 — Vigilance RH" FontSize="15"
+                                       FontWeight="SemiBold" Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Colonnes : Matricule ; DateEvaluation ; BaissePerformance ; ScorePerformanceN1 ; Commentaire"
+                                   FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="Choisir un fichier..." Click="ImportVigilance_Click"
+                                Background="#2563EB" Foreground="White" Padding="16,10"
+                                FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0"
+                                HorizontalAlignment="Left">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock x:Name="LblResultVigilance" FontSize="12" Foreground="#059669"
+                                   Margin="0,8,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+            </UniformGrid>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

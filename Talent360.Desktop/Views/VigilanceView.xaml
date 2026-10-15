@@ -1,0 +1,89 @@
+<UserControl x:Class="Talent360.Desktop.Views.VigilanceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Talent360.Desktop.ViewModels"
+             Background="#F5F6FA">
+
+    <UserControl.DataContext>
+        <vm:VigilanceViewModel/>
+    </UserControl.DataContext>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <!-- TITRE -->
+            <TextBlock Text="Vigilance RH" FontSize="28" FontWeight="Bold"
+                       Foreground="#1B2A4A" Margin="0,0,0,4"/>
+            <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#9CA3AF" Margin="0,0,0,4">
+                <Run Text="L'indice de vigilance n'est pas une prediction de depart."/>
+                <Run Text="C'est un outil de priorisation d'actions d'accompagnement RH."/>
+            </TextBlock>
+
+            <!-- MESSAGE D'ERREUR -->
+            <Border Background="#FEE2E2" CornerRadius="8" Padding="12" Margin="0,4,0,12"
+                    Visibility="{Binding MessageErreur, Converter={StaticResource BoolToVisConverter}}">
+                <TextBlock Text="{Binding MessageErreur}" Foreground="#991B1B" FontSize="13" TextWrapping="Wrap"/>
+            </Border>
+
+            <!-- KPI EN HAUT -->
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+                <Border Background="White" CornerRadius="10" Padding="16" Margin="4"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Population" FontSize="12" Foreground="#6B7280"/>
+                        <TextBlock Text="{Binding TotalCollaborateurs}" FontSize="28" FontWeight="Bold" Foreground="#1B2A4A"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#FEE2E2" CornerRadius="10" Padding="16" Margin="4"
+                        BorderBrush="#FECACA" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Vigilance elevee" FontSize="12" Foreground="#991B1B"/>
+                        <TextBlock Text="{Binding NombreElevee}" FontSize="28" FontWeight="Bold" Foreground="#DC2626"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#FEF3C7" CornerRadius="10" Padding="16" Margin="4"
+                        BorderBrush="#FDE68A" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Vigilance moderee" FontSize="12" Foreground="#92400E"/>
+                        <TextBlock Text="{Binding NombreModeree}" FontSize="28" FontWeight="Bold" Foreground="#D97706"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#D1FAE5" CornerRadius="10" Padding="16" Margin="4"
+                        BorderBrush="#A7F3D0" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Vigilance faible" FontSize="12" Foreground="#065F46"/>
+                        <TextBlock Text="{Binding NombreFaible}" FontSize="28" FontWeight="Bold" Foreground="#059669"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- MESSAGE SI PAS DE DONNÉES -->
+            <TextBlock Text="{Binding MessageVide}" FontSize="14" Foreground="#6B7280"
+                       TextWrapping="Wrap" Margin="0,8,0,16"
+                       Visibility="{Binding ADonnees, Converter={StaticResource InverseBoolToVisConverter}}"/>
+
+            <!-- TABLEAU -->
+            <Border Background="White" CornerRadius="12" Padding="4"
+                    BorderBrush="#E5E7EB" BorderThickness="1"
+                    Visibility="{Binding ADonnees, Converter={StaticResource BoolToVisConverter}}">
+                <DataGrid ItemsSource="{Binding Collaborateurs}" AutoGenerateColumns="False"
+                          IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+                          HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#F3F4F6" BorderThickness="0"
+                          Background="White" RowBackground="White" AlternatingRowBackground="#F9FAFB"
+                          FontSize="13">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Niveau" Binding="{Binding NiveauVigilance}" Width="80"/>
+                        <DataGridTextColumn Header="Matricule" Binding="{Binding Matricule}" Width="80"/>
+                        <DataGridTextColumn Header="Collaborateur" Binding="{Binding NomComplet}" Width="160"/>
+                        <DataGridTextColumn Header="Direction" Binding="{Binding Direction}" Width="140"/>
+                        <DataGridTextColumn Header="Poste" Binding="{Binding Poste}" Width="160"/>
+                        <DataGridTextColumn Header="Indice" Binding="{Binding IndiceVigilance}" Width="60"/>
+                        <DataGridTextColumn Header="Facteurs" Binding="{Binding FacteursTexte}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

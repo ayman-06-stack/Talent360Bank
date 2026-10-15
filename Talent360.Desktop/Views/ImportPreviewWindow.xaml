@@ -1,0 +1,101 @@
+<Window x:Class="Talent360.Desktop.Views.ImportPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Aperçu de l'import" Height="520" Width="720"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize"
+        Background="#F5F6FA">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- TITRE + SOURCE -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock x:Name="LblTitre" FontSize="20" FontWeight="Bold" Foreground="#1B2A4A"/>
+            <TextBlock x:Name="LblFichier" FontSize="12" Foreground="#6B7280" Margin="0,4,0,0"
+                       TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <!-- STATISTIQUES -->
+        <UniformGrid Grid.Row="1" Columns="3" Margin="0,0,0,16">
+            <Border Background="White" CornerRadius="10" Padding="14" Margin="4"
+                    BorderBrush="#E5E7EB" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Lignes détectées" FontSize="11" Foreground="#6B7280"/>
+                    <TextBlock x:Name="LblTotalLignes" FontSize="24" FontWeight="Bold" Foreground="#1B2A4A"/>
+                </StackPanel>
+            </Border>
+            <Border Background="#D1FAE5" CornerRadius="10" Padding="14" Margin="4"
+                    BorderBrush="#A7F3D0" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Nouveaux matricules" FontSize="11" Foreground="#065F46"/>
+                    <TextBlock x:Name="LblNouveaux" FontSize="24" FontWeight="Bold" Foreground="#059669"/>
+                </StackPanel>
+            </Border>
+            <Border Background="#FEF3C7" CornerRadius="10" Padding="14" Margin="4"
+                    BorderBrush="#FDE68A" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Mises a jour" FontSize="11" Foreground="#92400E"/>
+                    <TextBlock x:Name="LblMisAJour" FontSize="24" FontWeight="Bold" Foreground="#D97706"/>
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+
+        <!-- APERÇU DES 5 PREMIÈRES LIGNES -->
+        <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="8"
+                BorderBrush="#E5E7EB" BorderThickness="1">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Aperçu des 5 premières lignes :" FontSize="12"
+                           Foreground="#6B7280" Margin="4,4,4,8"/>
+                <DataGrid x:Name="GridApercu" AutoGenerateColumns="True"
+                          IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+                          HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#F3F4F6" BorderThickness="0"
+                          Background="White" RowBackground="White" AlternatingRowBackground="#F9FAFB"
+                          FontSize="12" MaxHeight="250"/>
+            </DockPanel>
+        </Border>
+
+        <!-- BOUTONS -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="Annuler" Click="Annuler_Click"
+                    Background="#F3F4F6" Foreground="#374151" Padding="20,10"
+                    FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0" Margin="0,0,8,0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#E5E7EB"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Confirmer l'import" Click="Confirmer_Click"
+                    Background="#059669" Foreground="White" Padding="20,10"
+                    FontSize="13" FontWeight="SemiBold" Cursor="Hand" BorderThickness="0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#047857"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

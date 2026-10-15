@@ -1,0 +1,93 @@
+<UserControl x:Class="Talent360.Desktop.Views.CampagneView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F5F6FA">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <TextBlock Text="Campagne — Suivi de complétude" FontSize="28" FontWeight="Bold"
+                       Foreground="#1B2A4A" Margin="0,0,0,8"/>
+            <TextBlock Text="État d'avancement des imports de données par source"
+                       FontSize="13" Foreground="#6B7280" Margin="0,0,0,24"/>
+
+            <!-- KPI PRINCIPAL -->
+            <Border Background="#2563EB" CornerRadius="12" Padding="24" Margin="0,0,0,20">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Population SIRH" Foreground="#B3D4FC" FontSize="14"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding NbCollaborateurs}" FontSize="48" FontWeight="Bold"
+                               Foreground="White" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                    <TextBlock Text="collaborateurs importés" Foreground="#B3D4FC" FontSize="13"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 4 CARTES DE COMPLÉTUDE -->
+            <UniformGrid Columns="4">
+
+                <!-- Auto-évaluations -->
+                <Border Background="White" CornerRadius="12" Margin="6" Padding="20"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="📝" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock Text="Auto-évaluations" Foreground="#6B7280" FontSize="12"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding NbAutoEvaluations}" FontSize="32" FontWeight="Bold"
+                                   Foreground="#1B2A4A" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                        <TextBlock Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center">
+                            <Run Text="{Binding PctAutoEval, Mode=OneWay, StringFormat=F1}"/><Run Text=" %"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Évaluations Manager -->
+                <Border Background="White" CornerRadius="12" Margin="6" Padding="20"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="👔" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock Text="Éval. Manager" Foreground="#6B7280" FontSize="12"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding NbEvalManager}" FontSize="32" FontWeight="Bold"
+                                   Foreground="#1B2A4A" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                        <TextBlock Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center">
+                            <Run Text="{Binding PctEvalManager, Mode=OneWay, StringFormat=F1}"/><Run Text=" %"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Engagement -->
+                <Border Background="White" CornerRadius="12" Margin="6" Padding="20"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="💬" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock Text="Engagement" Foreground="#6B7280" FontSize="12"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding NbEngagement}" FontSize="32" FontWeight="Bold"
+                                   Foreground="#1B2A4A" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                        <TextBlock Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center">
+                            <Run Text="{Binding PctEngagement, Mode=OneWay, StringFormat=F1}"/><Run Text=" %"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Scores calculés -->
+                <Border Background="White" CornerRadius="12" Margin="6" Padding="20"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="🎯" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock Text="Scores calculés" Foreground="#6B7280" FontSize="12"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding NbScoresCalcules}" FontSize="32" FontWeight="Bold"
+                                   Foreground="#059669" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                        <TextBlock Foreground="#6B7280" FontSize="12" HorizontalAlignment="Center">
+                            <Run Text="{Binding PctScores, Mode=OneWay, StringFormat=F1}"/><Run Text=" %"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+            </UniformGrid>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

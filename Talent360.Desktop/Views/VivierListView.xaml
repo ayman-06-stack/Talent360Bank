@@ -1,0 +1,69 @@
+<UserControl x:Class="Talent360.Desktop.Views.VivierListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Talent360.Desktop.ViewModels"
+             Background="#F5F6FA">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <TextBlock Text="Viviers de talents" FontSize="28" FontWeight="Bold"
+                       Foreground="#1B2A4A" Margin="0,0,0,8"/>
+            <TextBlock Text="Répartition des talents validés par vivier stratégique"
+                       FontSize="13" Foreground="#6B7280" Margin="0,0,0,20"/>
+
+            <!-- MESSAGE VIDE -->
+            <Border Background="#FEF3C7" CornerRadius="8" Padding="16" Margin="0,0,0,16"
+                    Visibility="{Binding ADonnees, Converter={StaticResource InverseBoolToVisConverter}}">
+                <TextBlock Text="{Binding MessageVide}" Foreground="#92400E" FontSize="14"
+                           TextWrapping="Wrap"/>
+            </Border>
+
+            <!-- CONTENU -->
+            <ItemsControl ItemsSource="{Binding Viviers}"
+                          Visibility="{Binding ADonnees, Converter={StaticResource BoolToVisConverter}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White" CornerRadius="12" Margin="6" Padding="20"
+                                BorderBrush="#E5E7EB" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Nom}" FontSize="17" FontWeight="Bold"
+                                           Foreground="#1B2A4A" Margin="0,0,0,12"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="Effectif : " Foreground="#6B7280" FontSize="13"/>
+                                    <TextBlock Text="{Binding Effectif}" FontWeight="SemiBold"
+                                               Foreground="#2563EB" FontSize="13"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="Perf. moy. : " Foreground="#6B7280" FontSize="13"/>
+                                    <TextBlock Text="{Binding PerfMoyenne, StringFormat=F1}"
+                                               FontWeight="SemiBold" Foreground="#1B2A4A" FontSize="13"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="Potentiel moy. : " Foreground="#6B7280" FontSize="13"/>
+                                    <TextBlock Text="{Binding PotentielMoyen, StringFormat=F1}"
+                                               FontWeight="SemiBold" Foreground="#1B2A4A" FontSize="13"/>
+                                </StackPanel>
+                                <Border Background="#EFF6FF" CornerRadius="6" Padding="8" Margin="0,8,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Ready Now : " Foreground="#2563EB" FontSize="13"/>
+                                        <TextBlock Text="{Binding ReadyNowCount}" FontWeight="Bold"
+                                                   Foreground="#2563EB" FontSize="13"/>
+                                        <TextBlock Text="{Binding ReadyNowPct, StringFormat=' ({0:F0}%)'}"
+                                                   Foreground="#60A5FA" FontSize="13"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

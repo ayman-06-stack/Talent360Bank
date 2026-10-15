@@ -1,0 +1,251 @@
+<UserControl x:Class="Talent360.Desktop.Views.EngagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Talent360.Desktop.ViewModels"
+             Background="#F5F6FA">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <!-- ═══════════ TITRE + FILTRE ═══════════ -->
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Engagement des collaborateurs" FontSize="28" FontWeight="Bold"
+                               Foreground="#1B2A4A"/>
+                    <TextBlock Text="Vue agrégée DRH — 6 dimensions d'engagement (échelle 0-100)"
+                               FontSize="13" Foreground="#6B7280" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <!-- Filtre Direction -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"
+                            Visibility="{Binding ADonnees, Converter={StaticResource BoolToVisConverter}}">
+                    <TextBlock Text="Direction :" VerticalAlignment="Center" Foreground="#6B7280"
+                               FontSize="13" Margin="0,0,8,0"/>
+                    <ComboBox ItemsSource="{Binding DirectionsDisponibles}"
+                              SelectedItem="{Binding DirectionSelectionnee, Mode=TwoWay}"
+                              Width="200" Padding="8,6" FontSize="13"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- ═══════════ MESSAGE VIDE ═══════════ -->
+            <Border Background="#FEF3C7" CornerRadius="8" Padding="16" Margin="0,0,0,16"
+                    Visibility="{Binding ADonnees, Converter={StaticResource InverseBoolToVisConverter}}">
+                <TextBlock Text="{Binding MessageVide}" Foreground="#92400E" FontSize="14"
+                           TextWrapping="Wrap"/>
+            </Border>
+
+            <!-- ═══════════ CONTENU PRINCIPAL ═══════════ -->
+            <StackPanel Visibility="{Binding ADonnees, Converter={StaticResource BoolToVisConverter}}">
+
+                <!-- ────── KPI GLOBAUX ────── -->
+                <Border Background="White" CornerRadius="12" Padding="20"
+                        BorderBrush="#E5E7EB" BorderThickness="1" Margin="0,0,0,16">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!-- Réponses -->
+                        <StackPanel Margin="0,0,40,0" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding NombreReponsesTotal}" FontSize="32" FontWeight="Bold"
+                                       Foreground="#2563EB" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Réponses" FontSize="12" Foreground="#6B7280"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <!-- Engagement moyen -->
+                        <StackPanel Margin="0,0,40,0" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding EngagementMoyenGlobal, StringFormat={}{0:F1} %}"
+                                       FontSize="32" FontWeight="Bold" Foreground="#1B2A4A"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Engagement moyen" FontSize="12" Foreground="#6B7280"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <!-- Dimensions sous 70 % -->
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding DimensionsSous70}" FontSize="32" FontWeight="Bold"
+                                       Foreground="#DC2626" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Dimensions &lt; 70 %" FontSize="12" Foreground="#6B7280"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- ────── 6 CARTES DIMENSIONS ────── -->
+                <TextBlock Text="Scores par dimension" FontSize="18" FontWeight="SemiBold"
+                           Foreground="#1B2A4A" Margin="0,0,0,12"/>
+
+                <ItemsControl ItemsSource="{Binding Dimensions}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding CouleurFond}" CornerRadius="12" Padding="20"
+                                    BorderBrush="{Binding CouleurBordure}" BorderThickness="2"
+                                    Margin="6">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                        <TextBlock Text="{Binding Icone}" FontSize="20" Margin="0,0,8,0"/>
+                                        <TextBlock Text="{Binding Nom}" FontSize="15" FontWeight="SemiBold"
+                                                   Foreground="#1B2A4A" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding ScoreTexte}" FontSize="28" FontWeight="Bold"
+                                               Foreground="{Binding CouleurTexte}" Margin="0,0,0,4"/>
+                                    <TextBlock Text="{Binding StatutTexte}" FontSize="12"
+                                               Foreground="{Binding CouleurTexte}"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- ────── TABLEAU PAR DIRECTION ────── -->
+                <TextBlock Text="Détail par Direction" FontSize="18" FontWeight="SemiBold"
+                           Foreground="#1B2A4A" Margin="0,24,0,12"/>
+
+                <Border Background="White" CornerRadius="12" Padding="16"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <DataGrid ItemsSource="{Binding LignesParDirection}" AutoGenerateColumns="False"
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                              BorderThickness="0" Background="White"
+                              RowBackground="White" AlternatingRowBackground="#F9FAFB"
+                              SelectionMode="Single" SelectionUnit="FullRow"
+                              ColumnHeaderHeight="36" RowHeight="34" FontSize="13">
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#F1F5F9"/>
+                                <Setter Property="Foreground" Value="#475569"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="Padding" Value="8,6"/>
+                                <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Direction" Binding="{Binding Direction}"
+                                                Width="*" FontSize="13">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="4,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="N" Binding="{Binding NombreReponses}" Width="40">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="#6B7280"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Management -->
+                            <DataGridTextColumn Header="Manag." Binding="{Binding Management, StringFormat=F1}" Width="72">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="Foreground" Value="{Binding CouleurManagement}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Reconnaissance -->
+                            <DataGridTextColumn Header="Recon." Binding="{Binding Reconnaissance, StringFormat=F1}" Width="72">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="Foreground" Value="{Binding CouleurReconnaissance}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Formation -->
+                            <DataGridTextColumn Header="Form." Binding="{Binding Formation, StringFormat=F1}" Width="72">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="Foreground" Value="{Binding CouleurFormation}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Évolution Pro -->
+                            <DataGridTextColumn Header="Évol." Binding="{Binding EvolutionPro, StringFormat=F1}" Width="72">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="Foreground" Value="{Binding CouleurEvolutionPro}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Conditions Travail -->
+                            <DataGridTextColumn Header="Cond.T" Binding="{Binding ConditionsTravail, StringFormat=F1}" Width="72">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="Foreground" Value="{Binding CouleurConditionsTravail}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Communication -->
+                            <DataGridTextColumn Header="Comm." Binding="{Binding Communication, StringFormat=F1}" Width="72">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="Foreground" Value="{Binding CouleurCommunication}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Moyenne -->
+                            <DataGridTextColumn Header="Moy." Binding="{Binding Moyenne, StringFormat=F1}" Width="72">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Foreground" Value="{Binding CouleurMoyenne}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+                <!-- ────── LÉGENDE ────── -->
+                <Border Background="White" CornerRadius="8" Padding="12" Margin="0,12,0,0"
+                        BorderBrush="#E5E7EB" BorderThickness="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border Width="14" Height="14" CornerRadius="3" Margin="0,0,6,0"
+                                Background="#DCFCE7" BorderBrush="#22C55E" BorderThickness="1"/>
+                        <TextBlock Text="≥ 70 % (conforme)" Foreground="#6B7280" FontSize="12"
+                                   VerticalAlignment="Center" Margin="0,0,24,0"/>
+                        <Border Width="14" Height="14" CornerRadius="3" Margin="0,0,6,0"
+                                Background="#FEE2E2" BorderBrush="#EF4444" BorderThickness="1"/>
+                        <TextBlock Text="&lt; 70 % (alerte)" Foreground="#6B7280" FontSize="12"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
